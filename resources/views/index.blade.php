@@ -70,7 +70,7 @@
             <li>Tempat Turun : {{ $listSurah['tempat_turun'] }}</li>
             <li>Arti : {{ $listSurah['arti'] }}</li>
             <li>Deskripsi : {!! $listSurah['deskripsi'] !!}</li> <br/>
-                <audio controls>
+                <audio controls autoplay>
                     <source src="{!! $listSurah['audio'] !!}" type="audio/ogg">
                 </audio>
             </li>
