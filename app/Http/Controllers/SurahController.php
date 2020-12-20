@@ -16,13 +16,12 @@ class SurahController extends Controller
 
     public function search(Request $request) {
             $this->validate($request, [
-                'surah' => 'required|numeric|max:114'
+                'surah' => 'required|numeric|max:114|min:1'
             ]);
             $surah = $request->surah;
             $listSurah = Http::get('https://equran.id/api/surat/'.$surah);
-            $tafsirSurah = Http::get('https://equran.id/api/tafsir/'.$surah);
             $listSurah->json();
-            return view('index', compact('listSurah', 'tafsirSurah'));
+            return view('index', compact('listSurah'));
 
     }
 }

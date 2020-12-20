@@ -40,14 +40,27 @@
   <!-- Start Search -->
   <div class="container mt-5 pt-5">
     <div class="row text-center justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-4">
             @if (\Route::current()->getName() == 'index')
             <form action="{{ route('surah') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                  <label for="search" class="form-label">Search Here</label>
-                  <input type="text" name="surah" class="form-control @error('title') is-invalid @enderror" id="search" placeholder="Masukkan Nomor Surah">
+                  <label for="search" class="form-label alert-danger btn btn-primary mt-3">Search Surah</label>
+                  <input type="text" name="surah" class="form-control @error('surah') is-invalid @enderror" id="search" placeholder="Masukkan Nomor Surah" autofocus>
                   @error('surah')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
+                </div>
+                <button type="submit" class="btn btn-primary">Cari</button>
+              </form>
+        </div>
+        <div class="col-md-4">
+            <form action="{{ route('tafsir') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                  <label for="search2" class="form-label alert-danger btn btn-danger mt-3">Search Tafsir</label>
+                  <input type="text" name="surah2" class="form-control @error('surah2') is-invalid @enderror" id="search2" placeholder="Masukkan Nomor Surah" autofocus>
+                  @error('surah2')
                     <div class="alert alert-danger">{{ $message }}</div>
                   @enderror
                 </div>
@@ -62,12 +75,13 @@
   <!-- End Search -->
 
   <!-- Start Content -->
-  @if (isset($listSurah))
   <section class="about bg-light" id="about">
     <div class="container text-center">
       <div class="row justify-content-center text-justify pb-5 mt-5 pt-3">
         <div class="col-md-12 sm-8">
         <ul>
+            @if (isset($listSurah))
+            @if (\Route::current()->getName() == 'surah')
             <li>Nomor Surah : {{ $listSurah['nomor'] }}</li>
             <li>Nama Surah : {{ $listSurah['nama'] }}</li>
             <li>Nama Latin : {{ $listSurah['nama_latin'] }}</li>
@@ -85,17 +99,24 @@
                 <p>{!! $surah['tr'] !!}</p> <br/>
                 <p>{{ $surah['idn'] }}</p>
             @endforeach
+            @elseif(\Route::current()->getName() == 'tafsir')
                 <h2 class="text-center mt-5 pt-3">Tafsir Surah {{ $listSurah['nama_latin'] }}</h2>
-            @foreach ($tafsirSurah['tafsir'] as $tafsir)
+                <div class="text-center mt-4">
+                    <audio controls autoplay>
+                        <source src="{!! $audio !!}" type="audio/ogg">
+                    </audio>
+                </div>
+            @foreach ($listSurah['tafsir'] as $tafsir)
                 <h6>Nomor Ayat : {{ $tafsir['ayat'] }}</h6> <br/>
                 <p>Isi Tafsir : {{ $tafsir['tafsir'] }}</p>
             @endforeach
+            @endif
+            @endif
         </ul>
       </div>
     </div>
     </div>
   </section>
-  @endif
   <!-- End Content -->
 
   <!-- Footer -->

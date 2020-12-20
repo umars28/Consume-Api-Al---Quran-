@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SurahController;
+use App\Http\Controllers\TafsirController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,4 @@ use App\Http\Controllers\SurahController;
 
 Route::get('/', [SurahController::class, 'index'])->name('index');
 Route::post('/surah', [SurahController::class, 'search'])->name('surah');
+Route::post('/tafsir', [TafsirController::class, 'search'])->name('tafsir');
