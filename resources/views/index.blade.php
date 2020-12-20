@@ -62,6 +62,7 @@
   <section class="about bg-light" id="about">
     <div class="container text-center">
       <div class="row justify-content-center text-justify pb-5 mt-5 pt-3">
+        <div class="col-md-12 sm-8">
         <ul>
             <li>Nomor Surah : {{ $listSurah['nomor'] }}</li>
             <li>Nama Surah : {{ $listSurah['nama'] }}</li>
@@ -87,6 +88,7 @@
             @endforeach
         </ul>
       </div>
+    </div>
     </div>
   </section>
   @endif
