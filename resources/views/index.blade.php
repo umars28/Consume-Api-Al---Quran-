@@ -41,6 +41,7 @@
   <div class="container mt-5 pt-5">
     <div class="row text-center justify-content-center">
         <div class="col-md-8">
+            @if (\Route::current()->getName() == 'index')
             <form action="{{ route('surah') }}" method="POST">
                 @csrf
                 <div class="mb-3">
@@ -52,6 +53,9 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Cari</button>
               </form>
+              @else
+              <a href="{{ route('index') }}" class="btn btn-outline-primary alert-danger">Search Again</a>
+              @endif
         </div>
     </div>
   </div>

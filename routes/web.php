@@ -14,5 +14,5 @@ use App\Http\Controllers\SurahController;
 |
 */
 
-Route::get('/', [SurahController::class, 'index']);
+Route::get('/', [SurahController::class, 'index'])->name('index');
 Route::post('/surah', [SurahController::class, 'search'])->name('surah');
