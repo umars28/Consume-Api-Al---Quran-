@@ -16,5 +16,7 @@ use App\Http\Controllers\TafsirController;
 */
 
 Route::get('/', [SurahController::class, 'index'])->name('index');
+Route::get('/list/surah', [SurahController::class, 'listSurah'])->name('list.surah');
+Route::get('/surah/{surah}', [SurahController::class, 'detailSurah'])->name('detail.surah');
 Route::post('/surah', [SurahController::class, 'search'])->name('surah');
 Route::post('/tafsir', [TafsirController::class, 'search'])->name('tafsir');

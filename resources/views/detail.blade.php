@@ -80,54 +80,31 @@
   <!-- Start Content -->
   <section class="about bg-light" id="about">
     <div class="container text-center">
-        @if (isset($listSurah))
-      <div class="row justify-content-center text-justify pb-5 mt-5 pt-3">
-        <div class="col-md-12 sm-8">
-        <ul>
-            @if (\Route::current()->getName() == 'surah')
-            <li>Nomor Surah : {{ $listSurah['nomor'] }}</li>
-            <li>Nama Surah : {{ $listSurah['nama'] }}</li>
-            <li>Nama Latin : {{ $listSurah['nama_latin'] }}</li>
-            <li>Jumlah Ayat : {{ $listSurah['jumlah_ayat'] }}</li>
-            <li>Tempat Turun : {{ $listSurah['tempat_turun'] }}</li>
-            <li>Arti : {{ $listSurah['arti'] }}</li>
-            <li>Deskripsi : {!! $listSurah['deskripsi'] !!}</li> <br/>
-                <audio controls autoplay>
-                    <source src="{!! $listSurah['audio'] !!}" type="audio/ogg">
-                </audio>
-            </li>
-            <h2 class="text-center mt-5 pt-4">Ayat Surah {{ $listSurah['nama_latin'] }}</h2>
-            @foreach ($listSurah['ayat'] as $surah)
-                <h5>{{ $surah['nomor'] }}. {{ $surah['ar'] }}</h5> <br/>
-                <p>{!! $surah['tr'] !!}</p> <br/>
-                <p>{{ $surah['idn'] }}</p>
-            @endforeach
-            @elseif(\Route::current()->getName() == 'tafsir')
-                <h2 class="text-center mt-5 pt-3">Tafsir Surah {{ $listSurah['nama_latin'] }}</h2>
-                <div class="text-center mt-4">
+        <div class="row justify-content-center text-justify pb-5 mt-5 pt-3">
+            <div class="col-md-6 sm-4">
+                <h2 class="mt-5 pt-4 mb-3">Surah {{ $detailSurah['nama_latin'] }}</h2>
+                <div class="mb-3">
                     <audio controls autoplay>
-                        <source src="{!! $audio !!}" type="audio/ogg">
+                        <source src="{!! $detailSurah['audio'] !!}" type="audio/ogg">
                     </audio>
                 </div>
-            @foreach ($listSurah['tafsir'] as $tafsir)
-                <h6>Nomor Ayat : {{ $tafsir['ayat'] }}</h6> <br/>
-                <p>Isi Tafsir : {{ $tafsir['tafsir'] }}</p>
-            @endforeach
-            @endif
-        </ul>
-      </div>
-    </div>
-    @elseif(isset($listAllSurah))
-    <div class="row justify-content-center text-justify pb-5 mt-5 pt-3">
-        <div class="col-md-4 sm-6">
-            <ol>
-                @foreach ($listAllSurah->json() as $surah)
-                    <li><a href="{{ route('detail.surah', $surah['nomor']) }}">{{ $surah['nama_latin'] }}</a></li>
-                @endforeach
-            </ol>
+                <li>Nomor Surah : {{ $detailSurah['nomor'] }}</li>
+                <li>Nama Surah : {{ $detailSurah['nama'] }}</li>
+                <li>Nama Latin : {{ $detailSurah['nama_latin'] }}</li>
+                <li>Jumlah Ayat : {{ $detailSurah['jumlah_ayat'] }}</li>
+                <li>Tempat Turun : {{ $detailSurah['tempat_turun'] }}</li>
+                <li>Arti : {{ $detailSurah['arti'] }}</li>
+                <li>Deskripsi : {!! $detailSurah['deskripsi'] !!}</li> <br/>
+            </div>
+            <div class="col-md-6 sm-8">
+                <ol>
+                    <h2 class="mt-5 pt-4 mb-4">List Surah</h2>
+                    @foreach ($listSurah->json() as $surah)
+                        <li class="mb-4"><a href="{{ route('detail.surah', $surah['nomor']) }}">{{ $surah['nama_latin'] }}</a></li>
+                    @endforeach
+                </ol>
+            </div>
         </div>
-    </div>
-    @endif
     </div>
   </section>
   <!-- End Content -->
