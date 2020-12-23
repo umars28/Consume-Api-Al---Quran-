@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SurahHelper;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use App\Http\Requests\SurahRequest;
 
 class SurahController extends Controller
 {
@@ -29,26 +31,22 @@ class SurahController extends Controller
         //     foreach($data as $surah) {
         //         echo $surah['nomor'];
         //     }
-        $listAllSurah = Http::get('https://equran.id/api/surat');
-        $listAllSurah->json();
+        $listAllSurah = SurahHelper::getAllSurah();
+        SurahHelper::changeToJson($listAllSurah);
         return view('index', compact('listAllSurah'));
     }
 
     public function detailSurah($surah) {
-        $listSurah = Http::get('https://equran.id/api/surat');
-        $listSurah->json();
-        $detailSurah = Http::get('https://equran.id/api/surat/'.$surah);
-        $detailSurah->json();
+        $listSurah = SurahHelper::getAllSurah();
+        $detailSurah = SurahHelper::getSurahByNomor($surah);
+        SurahHelper::changeToJson($listSurah);
+        SurahHelper::changeToJson($detailSurah);
         return view('detail', compact('detailSurah', 'listSurah'));
     }
 
-    public function search(Request $request) {
-            $this->validate($request, [
-                'surah' => 'required|numeric|max:114|min:1'
-            ]);
-            $surah = $request->surah;
-            $listSurah = Http::get('https://equran.id/api/surat/'.$surah);
-            $listSurah->json();
+    public function search(SurahRequest $request) {
+            $listSurah = SurahHelper::getSurahByNomor($request->surah);
+            SurahHelper::changeToJson($listSurah);
             return view('index', compact('listSurah'));
 
     }
